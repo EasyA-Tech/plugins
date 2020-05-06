@@ -421,7 +421,10 @@ public class Camera {
   }
 
   public void startPreview() throws CameraAccessException {
-    createCaptureSession(CameraDevice.TEMPLATE_PREVIEW, pictureImageReader.getSurface());
+    // Fix for: https://github.com/flutter/flutter/issues/19595
+    if (pictureImageReader != null) {
+      createCaptureSession(CameraDevice.TEMPLATE_PREVIEW, pictureImageReader.getSurface());
+    }
   }
 
   public void startPreviewWithImageStream(EventChannel imageStreamChannel)
